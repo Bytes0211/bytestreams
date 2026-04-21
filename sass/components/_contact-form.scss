@@ -1,0 +1,118 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ---------- Contact info rows (left column of contact section) ---------
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.contact-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-md;
+}
+
+.contact-info__icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border-radius: $radius-md;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  font-size: 18px;
+}
+
+.contact-info__body {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.contact-info__label {
+  font-size: $font-size-base;
+  font-weight: $weight-semi;
+  color: var(--text);
+  margin: 0;
+}
+
+.contact-info__value {
+  font-size: $font-size-small;
+  color: var(--text-muted);
+  line-height: $lh-small;
+  margin: 0;
+  white-space: pre-line;
+}
+
+// ---------- Form card ---------------------------------------------------
+.contact-form {
+  @include surface-card;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  padding: $space-2xl;
+
+  @include mobile {
+    padding: $space-xl;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs + 2;
+
+  label {
+    color: var(--text);
+    font-weight: $weight-medium;
+    font-size: $font-size-small;
+    letter-spacing: $ls-small;
+  }
+}
+
+.form-control {
+  width: 100%;
+  padding: $space-sm + 4 $space-md;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: $radius-md;
+  color: var(--text);
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  line-height: 1.4;
+  @include transition(border-color box-shadow background-color, $motion-micro);
+
+  &::placeholder {
+    color: var(--text-faded);
+  }
+
+  &:hover {
+    border-color: rgba($stream-blue, 0.4);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: $stream-blue;
+    box-shadow: 0 0 0 3px rgba($stream-blue, 0.2);
+  }
+}
+
+textarea.form-control {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.form-status {
+  font-size: $font-size-small;
+  min-height: 1.25em;
+  margin: 0;
+
+  &--success { color: $color-success; }
+  &--error   { color: $color-error; }
+}

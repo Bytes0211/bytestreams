@@ -1,0 +1,140 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ---------- Modern CSS Reset --------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 100%; // 16px root per Brand Kit §3.2
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: $font-primary;
+  font-weight: $weight-regular;
+  line-height: $lh-body;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @include transition(background-color color, $motion-standard);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: $stream-blue;
+  text-decoration: none;
+  @include transition(color, $motion-micro);
+
+  &:hover {
+    color: $flow-blue;
+  }
+}
+
+// ---------- Theme tokens (dark-mode-first, per Brand Kit §2.2) ----------
+:root,
+body[data-theme='dark'] {
+  --bg:          #{$void};
+  --surface:    #{$carbon};
+  --elevated:   #{$slate};
+  --border:     #{$edge};
+  --text:       #{$bright};
+  --text-muted: #{$muted};
+  --text-faded: #{$faded};
+
+  --brand:          #{$stream-blue};
+  --brand-hover:    #{$flow-blue};
+  --brand-active:   #{$deep-stream};
+  --brand-gradient: #{$brand-gradient};
+  --hero-bg:        #{$hero-bg-dark};
+}
+
+// Alternate light mode per Brand Kit §2.3 (can be toggled by script later)
+body[data-theme='light'] {
+  --bg:          #{$cloud};
+  --surface:    #{$mist};
+  --elevated:   #{$fog};
+  --border:     #{$trace};
+  --text:       #{$ink};
+  --text-muted: #{$graphite};
+  --text-faded: #{$ash};
+
+  --hero-bg: linear-gradient(180deg, $mist 0%, $cloud 100%);
+}
+
+// Selection color — brand blue
+::selection {
+  background: rgba($stream-blue, 0.35);
+  color: $bright;
+}
+
+// Focus ring — accessible, uses brand color
+:focus-visible {
+  outline: 2px solid $flow-blue;
+  outline-offset: 2px;
+  border-radius: $radius-sm;
+}
+
+// ---------- Keyframes ---------------------------------------------------
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%      { transform: scale(1.3); opacity: 0.55; }
+}
+
+// Respect prefers-reduced-motion (Brand Kit §8)
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

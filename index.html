@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ByteStreams — Smarter Workflows, Stronger Results. AI-powered workflow automation built for professional services teams.">
+    <meta name="theme-color" content="#0D1117">
+    <title>ByteStreams — Smarter Workflows, Stronger Results</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/bytestreams-icon-256.svg">
+
+    <!-- Google Fonts: Inter + JetBrains Mono (Brand Kit §3.1) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dist/css/main.css">
+</head>
+<body data-theme="dark">
+    <!-- ============== Header ============== -->
+    <header class="header" id="siteHeader">
+        <div class="header__container">
+            <a href="#home" class="header__logo" aria-label="ByteStreams — home">
+                <img src="assets/blue-side-slim-logo.png" alt="ByteStreams" class="header__logo-mark" width="198" height="56">
+            </a>
+
+            <nav class="header__nav" id="primaryNav" aria-label="Primary">
+                <ul class="header__nav-list">
+                    <li><a href="#home"     class="header__nav-link is-active">Home</a></li>
+                    <li><a href="#features" class="header__nav-link">Features</a></li>
+                    <li><a href="#about"    class="header__nav-link">About</a></li>
+                    <li><a href="#contact"  class="header__nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__actions">
+                <a href="#contact" class="btn btn--primary btn--sm">Get Started</a>
+                <button class="header__hamburger" id="hamburgerBtn"
+                        aria-label="Toggle navigation"
+                        aria-controls="primaryNav"
+                        aria-expanded="false">
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <!-- ============== Hero ============== -->
+        <section class="hero" id="home" aria-labelledby="heroHeadline">
+            <div class="hero__container">
+                <div class="hero__content">
+                    <h1 class="hero__headline" id="heroHeadline">
+                        Build Your <br>
+                        <span class="hero__accent">Digital Future</span>
+                    </h1>
+                    <p class="hero__description">
+                        Transform your ideas into reality with our cutting-edge solutions.
+                        We help businesses grow and thrive in the digital age.
+                    </p>
+                    <div class="hero__ctas">
+                        <a href="#contact" class="btn btn--primary btn--lg">
+                            Get Started <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                        <a href="#features" class="btn btn--ghost btn--lg">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero__visual" aria-hidden="true">
+                    <div class="hero__orbit"></div>
+                    <img src="assets/green-stacked-logo.png" alt=""
+                         class="hero__mark" width="320" height="480">
+                </div>
+            </div>
+        </section>
+
+        <!-- ============== About ============== -->
+        <section class="section about" id="about" aria-labelledby="aboutTitle">
+            <div class="about__container">
+                <div class="about__intro">
+                    <h2 class="about__title" id="aboutTitle">About Bytestreams</h2>
+                    <div class="about__body">
+                        <p>
+                            Bytestreams is an engineering studio that builds AI-native products
+                            for industries that can't afford to get it wrong.
+                        </p>
+                        <p>
+                            We've shipped production systems across healthcare, pharmaceutical
+                            research, medical devices, and large-scale data platforms for over
+                            two decades. Our own products &mdash; DialTone, StratifyAI, AIphaWatch
+                            &mdash; run on the same stack we bring to client engagements: AWS,
+                            Terraform, real-time streaming, and production-grade AI integration.
+                        </p>
+                        <p>
+                            We don't chase volume. We take on work where the fit is obvious,
+                            ship something maintainable, and let the code speak for itself.
+                        </p>
+                    </div>
+                    <ul class="checklist">
+                        <li class="checklist__item">
+                            <span class="checklist__icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                            Healthcare &amp; life sciences domain experience
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                            Production AI/LLM systems, not demos
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                            End-to-end stack ownership (data &rarr; cloud &rarr; AI &rarr; frontend)
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                            Ships with tests, Terraform, and documentation
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="about__stats" role="list">
+                    <article class="stat-card stat-card--accent" role="listitem">
+                        <p class="stat-card__number">20+</p>
+                        <p class="stat-card__label">Years Shipping Production Systems</p>
+                    </article>
+                    <article class="stat-card stat-card--accent" role="listitem">
+                        <p class="stat-card__number stat-card__number--compact">1.2&nbsp;PB</p>
+                        <p class="stat-card__label">Largest Production Data Lake Architected</p>
+                    </article>
+                    <article class="stat-card stat-card--dark" role="listitem">
+                        <p class="stat-card__number">9</p>
+                        <p class="stat-card__label">LLM Providers Unified in Our Open-Source Framework</p>
+                    </article>
+                    <article class="stat-card stat-card--accent" role="listitem">
+                        <p class="stat-card__number">85%</p>
+                        <p class="stat-card__label">Test Coverage on Our Shipped Products</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============== Features ============== -->
+        <section class="section features" id="features" aria-labelledby="featuresTitle">
+            <div class="section__container">
+                <header class="section__header">
+                    <h2 class="section__title" id="featuresTitle">Why Choose Us</h2>
+                    <p class="section__subtitle">
+                        Discover the features that make us stand out from the competition
+                    </p>
+                </header>
+
+                <div class="features__grid">
+                    <article class="feature-card">
+                        <div class="feature-card__icon" style="color:#3B82F6;">
+                            <i class="fa-solid fa-code" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="feature-card__title">Twenty years in the code, not the conference circuit</h3>
+                        <p class="feature-card__description">
+                            Bytestreams is led by engineers who have been shipping production systems for two decades &mdash; across healthcare, pharma, medical devices, and large-scale data platforms. You're not paying for someone's first AWS project. You're paying for pattern recognition earned over a career.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-card__icon" style="color:#06B6D4;">
+                            <i class="fa-solid fa-microchip" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="feature-card__title">AI/LLM work that actually runs in production</h3>
+                        <p class="feature-card__description">
+                            RAG pipelines serving Bedrock-powered chatbots. LangGraph agentic workflows. Multi-provider LLM orchestration. Vector retrieval at scale. MCP-based automation. This isn't "we also do AI" &mdash; it's what we ship for ourselves (DialTone, StratifyAI) and for clients every week.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-card__icon" style="color:#10B981;">
+                            <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="feature-card__title">Healthcare and life sciences fluency</h3>
+                        <p class="feature-card__description">
+                            Sterling Pharma. Stryker Medical. Sonafi clinical research. Wright Medical. Accredo Health. Bytestreams has shipped production systems inside healthcare and life sciences for years. HIPAA workflows, regulated data handling, and domain vocabulary aren't a learning curve &mdash; they're background knowledge.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-card__icon" style="color:#F59E0B;">
+                            <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="feature-card__title">End-to-end stack, one accountability chain</h3>
+                        <p class="feature-card__description">
+                            Data engineering (Kafka, Flink, Spark, Databricks, Delta Lake). Cloud infrastructure (AWS, Terraform, multi-petabyte production data lakes). Backend (Python, FastAPI). Frontend (React, Svelte). ML/LLM integration (PyTorch, Bedrock, LangChain). One team, one point of accountability &mdash; not three vendors blaming each other.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-card__icon" style="color:#3B82F6;">
+                            <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="feature-card__title">Built to be handed off</h3>
+                        <p class="feature-card__description">
+                            Every engagement ships with Terraform, tests, CI/CD, and documentation. When we finish, your team inherits something maintainable &mdash; not tribal knowledge. Our own product (StratifyAI) has 877 tests at 85% coverage; client work meets the same bar.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-card__icon" style="color:#F0F6FC;">
+                            <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="feature-card__title">Proof you can inspect before we ever talk</h3>
+                        <p class="feature-card__description">
+                            Published PyPI package. Open-source projects on GitHub. Live deployed products (DialTone, AIphaWatch). Public portfolio with real metrics. Before a single sales call, you can see how we build. The work speaks first.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============== Contact ============== -->
+        <section class="section contact" id="contact" aria-labelledby="contactTitle">
+            <div class="section__container">
+                <header class="section__header">
+                    <h2 class="section__title" id="contactTitle">Get In Touch</h2>
+                    <p class="section__subtitle">
+                        Have a question or want to work together? We'd love to hear from you.
+                    </p>
+                </header>
+
+                <div class="contact__grid">
+                    <div class="contact-info">
+                        <div class="contact-info__item">
+                            <span class="contact-info__icon">
+                                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                            </span>
+                            <div class="contact-info__body">
+                                <p class="contact-info__label">Email</p>
+                                <p class="contact-info__value">hello@bytestreams.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info__item">
+                            <span class="contact-info__icon">
+                                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                            </span>
+                            <div class="contact-info__body">
+                                <p class="contact-info__label">Phone</p>
+                                <p class="contact-info__value"><a href="tel:+16292829555">+1 629-282-9555</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info__item">
+                            <span class="contact-info__icon">
+                                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                            </span>
+                            <div class="contact-info__body">
+                                <p class="contact-info__label">Address</p>
+                                <p class="contact-info__value">501 Union St Ste 545
+Nashville, Tennessee 37219
+US</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" id="contactForm" novalidate>
+                        <div class="form-field">
+                            <label for="nameField">Name</label>
+                            <input id="nameField" name="name" type="text" class="form-control"
+                                   placeholder="Your name" required autocomplete="name">
+                        </div>
+
+                        <div class="form-field">
+                            <label for="emailField">Email</label>
+                            <input id="emailField" name="email" type="email" class="form-control"
+                                   placeholder="your@email.com" required autocomplete="email">
+                        </div>
+
+                        <div class="form-field">
+                            <label for="messageField">Message</label>
+                            <textarea id="messageField" name="message" class="form-control"
+                                      placeholder="Your message..." required></textarea>
+                        </div>
+
+                        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+
+                        <button type="submit" class="btn btn--primary btn--block btn--lg">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============== Footer ============== -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <a href="#home" class="footer__logo" aria-label="ByteStreams — home">
+                        <img src="assets/blue-side-slim-logo.png" alt="ByteStreams" width="198" height="56">
+                    </a>
+                    <p class="footer__tagline">
+                        Smarter Workflows, Stronger Results.
+                    </p>
+                </div>
+
+                <div>
+                    <p class="footer__column-title">Product</p>
+                    <ul class="footer__links">
+                        <li><a href="#features" class="footer__link">Features</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p class="footer__column-title">Company</p>
+                    <ul class="footer__links">
+                        <li><a href="#about" class="footer__link">About</a></li>
+                        <li><a href="#" class="footer__link">Security</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p class="footer__column-title">Legal</p>
+                    <ul class="footer__links">
+                        <li><a href="privacy.html" class="footer__link">Privacy</a></li>
+                        <li><a href="terms.html" class="footer__link">Terms</a></li>
+                        <li><a href="#" class="footer__link">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2026 ByteStreams. Smarter Workflows, Stronger Results.
+                </p>
+                <div class="footer__social" aria-label="Social links">
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js" defer></script>
+</body>
+</html>

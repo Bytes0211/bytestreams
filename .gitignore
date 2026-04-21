@@ -1,0 +1,10 @@
+node_modules/
+dist/css/main.css.map
+.DS_Store
+*.log
+
+# Deploy staging directory — rebuilt fresh by CI
+public/
+
+# Wrangler local state
+.wrangler/

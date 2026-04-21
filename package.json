@@ -1,0 +1,25 @@
+{
+  "name": "bytestreams",
+  "version": "1.0.0",
+  "description": "ByteStreams marketing site — Smarter Workflows, Stronger Results",
+  "main": "index.html",
+  "scripts": {
+    "sass": "sass sass/main.scss dist/css/main.css",
+    "sass:watch": "sass --watch sass/main.scss dist/css/main.css",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "bytestreams",
+    "saas",
+    "marketing-site",
+    "sass",
+    "static"
+  ],
+  "author": "ByteStreams",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "devDependencies": {
+    "sass": "^1.97.2",
+    "wrangler": "^4.84.1"
+  }
+}

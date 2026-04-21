@@ -1,0 +1,174 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ---------- Base card ---------------------------------------------------
+.card {
+  @include surface-card;
+  @include transition(border-color background-color transform, $motion-standard);
+  position: relative;
+  overflow: hidden;
+
+  &--elevated {
+    background: var(--elevated);
+  }
+
+  &--gradient {
+    background: linear-gradient(
+      180deg,
+      rgba($stream-blue, 0.18) 0%,
+      rgba($stream-blue, 0.04) 100%
+    );
+    border-color: rgba($stream-blue, 0.35);
+  }
+}
+
+// ---------- Stat Card (About section — credible metrics) ---------------
+.stat-card {
+  @include surface-card;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $space-sm;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px);
+  @include transition(border-color transform box-shadow, $motion-standard);
+
+  &.is-visible {
+    animation: slideUp $motion-emphasis $ease-standard forwards;
+  }
+
+  &:hover {
+    border-color: rgba($stream-blue, 0.55);
+    transform: translateY(-4px);
+  }
+
+  // Alternating gradient background — matches the indigo/dark pattern in site/about.png
+  &--accent {
+    background: linear-gradient(
+      135deg,
+      rgba($deep-stream, 0.55) 0%,
+      rgba($stream-blue, 0.22) 100%
+    );
+    border-color: rgba($stream-blue, 0.35);
+  }
+
+  &--dark {
+    background: linear-gradient(
+      135deg,
+      rgba($slate, 0.7) 0%,
+      rgba($carbon, 0.9) 100%
+    );
+  }
+
+  &__number {
+    font-size: clamp(2.5rem, 4vw, 3.25rem);
+    font-weight: $weight-bold;
+    line-height: 1;
+    letter-spacing: $ls-h1;
+    color: $bright;
+    margin: 0;
+
+    // Compact modifier for multi-character values like "1.2 PB"
+    &--compact {
+      font-size: clamp(2rem, 3vw, 2.5rem);
+    }
+  }
+
+  &__label {
+    font-size: $font-size-small;
+    line-height: 1.4;
+    color: var(--text-muted);
+    letter-spacing: $ls-small;
+    margin: 0;
+    text-wrap: balance;
+  }
+}
+
+// ---------- Feature Card ("Why Choose Us") ------------------------------
+.feature-card {
+  @include surface-card;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  padding: $space-xl;
+  opacity: 0;
+  transform: translateY(24px);
+  @include transition(border-color transform box-shadow, $motion-standard);
+
+  &.is-visible {
+    animation: slideUp $motion-emphasis $ease-standard forwards;
+  }
+
+  &:hover {
+    border-color: rgba($stream-blue, 0.45);
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: $bright;
+  }
+
+  &__title {
+    font-size: $font-size-h4;
+    font-weight: $weight-semi;
+    line-height: 1.3;
+    margin: 0;
+    color: var(--text);
+    text-wrap: balance;
+  }
+
+  &__description {
+    font-size: $font-size-small;
+    line-height: $lh-body;
+    color: var(--text-muted);
+    margin: 0;
+  }
+}
+
+// Staggered reveal delay for cards
+@for $i from 1 through 8 {
+  .stat-card:nth-child(#{$i}),
+  .feature-card:nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 80}ms;
+  }
+}
+
+// ---------- Checklist item (About section) ------------------------------
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  margin: $space-lg 0 0;
+}
+
+.checklist__item {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  font-size: $font-size-base;
+  color: var(--text-muted);
+
+  i,
+  .checklist__icon {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-full;
+    background: var(--elevated);
+    color: $bright;
+    font-size: 12px;
+    flex: 0 0 22px;
+  }
+}

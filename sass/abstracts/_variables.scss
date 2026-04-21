@@ -1,0 +1,136 @@
+// =========================================================================
+// ByteStreams Design Tokens
+// Sourced from ByteStreams Brand Kit v1.0 — April 2026
+// =========================================================================
+
+// ---------- 2.1 Primary Palette -----------------------------------------
+$stream-blue:   #2563EB; // Primary — CTAs, links, primary actions
+$flow-blue:     #3B82F6; // Primary Light — hover states, highlights, info
+$deep-stream:   #1D4ED8; // Primary Dark — active states, emphasis
+$data-teal:     #06B6D4; // Secondary — secondary actions, data viz
+$signal-green:  #10B981; // Accent — success / growth
+$byte-amber:    #F59E0B; // Accent Warm — warning / attention
+
+// ---------- 2.2 Dark Mode Palette (Default) -----------------------------
+$void:          #0D1117; // Primary background
+$carbon:        #161B22; // Cards, panels, modals
+$slate:         #21262D; // Elevated containers, navbars
+$edge:          #30363D; // Borders, dividers
+$bright:        #F0F6FC; // Headings, primary content
+$muted:         #8B949E; // Descriptions, labels
+$faded:         #484F58; // Placeholders, disabled
+
+// ---------- 2.3 Light Mode Palette (Alternate) --------------------------
+$cloud:         #FFFFFF;
+$mist:          #F6F8FA;
+$fog:           #EAEEF2;
+$trace:         #D0D7DE;
+$ink:           #1F2328;
+$graphite:      #656D76;
+$ash:           #8C959F;
+
+// ---------- 2.4 Semantic Colors -----------------------------------------
+$color-success: $signal-green;
+$color-warning: $byte-amber;
+$color-error:   #EF4444;
+$color-info:    $flow-blue;
+
+// ---------- 7. Brand Gradient (135°) ------------------------------------
+$brand-gradient: linear-gradient(135deg, $stream-blue 0%, $data-teal 100%);
+$brand-gradient-soft: linear-gradient(
+  135deg,
+  rgba(37, 99, 235, 0.15) 0%,
+  rgba(6, 182, 212, 0.08) 100%
+);
+
+// Subtle surface wash for hero / feature backgrounds
+$hero-bg-dark: radial-gradient(
+    ellipse at 80% 20%,
+    rgba(37, 99, 235, 0.18) 0%,
+    rgba(13, 17, 23, 0) 55%
+  ),
+  radial-gradient(
+    ellipse at 10% 90%,
+    rgba(6, 182, 212, 0.12) 0%,
+    rgba(13, 17, 23, 0) 60%
+  ),
+  $void;
+
+// ---------- 3. Typography -----------------------------------------------
+$font-primary: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+$font-mono:    'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+// Weights
+$weight-regular: 400;
+$weight-medium:  500;
+$weight-semi:    600;
+$weight-bold:    700;
+
+// Type scale (Brand Kit 3.2 — 16px root)
+$font-size-base:  1rem;      // 16px body
+$font-size-small: 0.875rem;  // 14px captions
+$font-size-tiny:  0.75rem;   // 12px metadata/badges
+$font-size-h4:    1.25rem;   // 20px card headers
+$font-size-h3:    1.5rem;    // 24px subsections
+$font-size-h2:    2rem;      // 32px section headers
+$font-size-h1:    2.5rem;    // 40px page titles
+$font-size-display: 3.5rem;  // Hero headline
+$font-size-display-lg: 4.25rem; // Hero on wide screens
+
+// Line heights
+$lh-h1: 1.2;
+$lh-h2: 1.25;
+$lh-h3: 1.3;
+$lh-h4: 1.4;
+$lh-body: 1.6;
+$lh-small: 1.5;
+
+// Letter spacing
+$ls-h1: -0.025em;
+$ls-h2: -0.02em;
+$ls-h3: -0.015em;
+$ls-h4: -0.01em;
+$ls-small: 0.01em;
+$ls-tiny: 0.02em;
+
+// ---------- 4.1 Spacing Scale (4px unit) --------------------------------
+$space-xs:  4px;
+$space-sm:  8px;
+$space-md:  16px;
+$space-lg:  24px;
+$space-xl:  32px;
+$space-2xl: 48px;
+$space-3xl: 64px;
+
+// ---------- 4.2 Border Radius -------------------------------------------
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   12px;
+$radius-xl:   16px;
+$radius-full: 9999px;
+
+// ---------- 8. Motion ---------------------------------------------------
+$motion-micro:    150ms;
+$motion-standard: 250ms;
+$motion-emphasis: 400ms;
+$motion-data:     600ms;
+
+$ease-out: ease-out;
+$ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+// ---------- Shadows (dark-mode-first) -----------------------------------
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.45);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+$shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.55);
+$shadow-glow-blue: 0 8px 28px rgba(37, 99, 235, 0.35);
+
+// ---------- Layout ------------------------------------------------------
+$container-max:      1200px;
+$container-max-wide: 1360px;
+$container-padding:  $space-lg;
+
+// ---------- Breakpoints -------------------------------------------------
+$bp-mobile:  600px;
+$bp-tablet:  900px;
+$bp-desktop: 1024px;
+$bp-wide:    1280px;

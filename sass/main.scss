@@ -1,0 +1,25 @@
+// =========================================================================
+// ByteStreams — main stylesheet entry point
+// Architecture: 7-1 (abstracts / base / layout / components / pages)
+// Compiled to: dist/css/main.css
+// =========================================================================
+
+// Abstracts (tokens + helpers)
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+
+// Base (reset + typography)
+@use 'base/reset';
+@use 'base/typography';
+
+// Layout
+@use 'layout/header';
+@use 'layout/footer';
+
+// Components
+@use 'components/buttons';
+@use 'components/cards';
+@use 'components/contact-form';
+
+// Pages
+@use 'pages/home';

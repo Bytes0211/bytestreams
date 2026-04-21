@@ -1,0 +1,98 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Headings ---------------------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-primary;
+  color: var(--text);
+  font-weight: $weight-bold;
+  margin: 0 0 $space-md;
+}
+
+h1 {
+  font-size: $font-size-h1;
+  line-height: $lh-h1;
+  letter-spacing: $ls-h1;
+}
+
+h2 {
+  font-size: $font-size-h2;
+  line-height: $lh-h2;
+  letter-spacing: $ls-h2;
+  font-weight: $weight-semi;
+}
+
+h3 {
+  font-size: $font-size-h3;
+  line-height: $lh-h3;
+  letter-spacing: $ls-h3;
+  font-weight: $weight-semi;
+}
+
+h4 {
+  font-size: $font-size-h4;
+  line-height: $lh-h4;
+  letter-spacing: $ls-h4;
+  font-weight: $weight-semi;
+}
+
+// Body -------------------------------------------------------------------
+p {
+  margin: 0 0 $space-md;
+  color: var(--text-muted);
+  font-size: $font-size-base;
+  line-height: $lh-body;
+
+  &.lead {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+  }
+
+  &.small {
+    font-size: $font-size-small;
+    line-height: $lh-small;
+    letter-spacing: $ls-small;
+  }
+}
+
+// UI labels
+label,
+.ui-label {
+  font-weight: $weight-medium;
+  font-size: $font-size-small;
+  color: var(--text);
+  letter-spacing: $ls-small;
+}
+
+// Tiny / metadata
+.tiny {
+  font-size: $font-size-tiny;
+  line-height: $lh-small;
+  letter-spacing: $ls-tiny;
+  color: var(--text-muted);
+}
+
+// Code -------------------------------------------------------------------
+code,
+pre,
+kbd,
+samp {
+  font-family: $font-mono;
+  font-size: 0.9em;
+}
+
+code {
+  background: var(--elevated);
+  color: var(--text);
+  padding: 2px 6px;
+  border-radius: $radius-sm;
+}
+
+// Strong / em
+strong { font-weight: $weight-semi; }
+em     { font-style: italic; }
+
+// Gradient headline helper
+.gradient-text {
+  @include gradient-text;
+}

@@ -1,0 +1,82 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use 'sass:color';
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  padding: $space-sm + 2 $space-lg;
+  border-radius: $radius-md;
+  font-family: $font-primary;
+  font-weight: $weight-semi;
+  font-size: $font-size-base;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  @include transition(background-color border-color color transform box-shadow, $motion-micro);
+
+  // Icon alignment inside buttons
+  i, svg { font-size: 0.9em; line-height: 1; }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  // Primary — Stream Blue per Brand Kit §2.1
+  &--primary {
+    background: $stream-blue;
+    color: $bright;
+    box-shadow: 0 4px 14px rgba($stream-blue, 0.35);
+
+    &:hover {
+      background: $flow-blue;
+      color: $bright;
+      transform: translateY(-1px);
+      box-shadow: $shadow-glow-blue;
+    }
+
+    &:active {
+      background: $deep-stream;
+      transform: translateY(0);
+    }
+  }
+
+  // Ghost — used for "Learn More" style links
+  &--ghost {
+    background: transparent;
+    color: var(--text);
+    border-color: transparent;
+
+    &:hover {
+      color: $flow-blue;
+      transform: translateX(2px);
+    }
+  }
+
+  // Outline — alt secondary
+  &--outline {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border);
+
+    &:hover {
+      border-color: rgba($stream-blue, 0.75);
+      color: $bright;
+      background: rgba($stream-blue, 0.1);
+    }
+  }
+
+  // Size variants
+  &--sm { padding: $space-xs + 2 $space-md; font-size: $font-size-small; }
+  &--lg { padding: $space-md $space-xl;    font-size: 1.0625rem; }
+
+  // Full-width (form submit)
+  &--block { width: 100%; }
+}

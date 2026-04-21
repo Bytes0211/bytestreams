@@ -1,0 +1,268 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ---------- Generic section wrapper ------------------------------------
+.section {
+  padding: $space-3xl 0;
+
+  @include mobile {
+    padding: $space-2xl 0;
+  }
+
+  &__container {
+    @include container($container-max-wide);
+  }
+
+  &__header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto $space-2xl;
+  }
+
+  &__title {
+    font-size: $font-size-h1;
+    margin-bottom: $space-md;
+
+    @include mobile {
+      font-size: $font-size-h2;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.0625rem;
+    color: var(--text-muted);
+    line-height: $lh-body;
+    margin: 0;
+  }
+}
+
+// ---------- Hero (site/home.png) ---------------------------------------
+.hero {
+  position: relative;
+  padding: $space-3xl 0 $space-3xl;
+  background: var(--hero-bg);
+  overflow: hidden;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+
+  @include mobile {
+    min-height: auto;
+    padding: $space-2xl 0;
+  }
+
+  &__container {
+    @include container($container-max-wide);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: $space-3xl;
+    align-items: center;
+
+    @include below-desktop {
+      grid-template-columns: 1fr;
+      gap: $space-2xl;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-lg;
+    max-width: 560px;
+    @include fade-in($motion-emphasis, 0.1s);
+  }
+
+  &__headline {
+    font-size: $font-size-display;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: $weight-bold;
+    margin: 0;
+    color: var(--text);
+
+    @include wide {
+      font-size: $font-size-display-lg;
+    }
+
+    @include mobile {
+      font-size: 2.25rem;
+    }
+
+    .hero__accent {
+      @include gradient-text;
+      display: inline-block;
+    }
+  }
+
+  &__description {
+    font-size: 1.0625rem;
+    line-height: $lh-body;
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 480px;
+  }
+
+  &__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-md;
+    margin-top: $space-sm;
+  }
+
+  &__visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 360px;
+    @include fade-in($motion-emphasis, 0.25s);
+
+    @include below-desktop {
+      min-height: 240px;
+    }
+  }
+
+  &__mark {
+    position: relative;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(320px, 70%);
+    max-height: 480px;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.45));
+
+    @include below-desktop {
+      max-width: 240px;
+    }
+  }
+
+  // Decorative orbiting dots to reinforce "data flow" visual direction
+  &__orbit {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.55;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: $radius-full;
+      border: 1px solid rgba($stream-blue, 0.25);
+    }
+
+    &::before {
+      width: 420px;
+      height: 420px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &::after {
+      width: 260px;
+      height: 260px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-color: rgba($data-teal, 0.22);
+    }
+  }
+}
+
+// ---------- About (site/about.png) -------------------------------------
+.about {
+  &__container {
+    @include container($container-max-wide);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: $space-3xl;
+    align-items: start;
+
+    @include below-desktop {
+      grid-template-columns: 1fr;
+      gap: $space-2xl;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-h1;
+    margin-bottom: $space-md;
+
+    @include wide {
+      font-size: 3rem;
+    }
+
+    @include mobile {
+      font-size: $font-size-h2;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    max-width: 560px;
+
+    p {
+      margin: 0;
+      font-size: 1.0625rem;
+      line-height: $lh-body;
+      color: var(--text-muted);
+    }
+  }
+
+  // Legacy single-paragraph variant (kept for backwards compatibility)
+  &__lead {
+    font-size: 1.0625rem;
+    color: var(--text-muted);
+    line-height: $lh-body;
+    margin: 0;
+    max-width: 520px;
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $space-lg;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// ---------- Features "Why Choose Us" (site/features.png) ---------------
+.features {
+  background: var(--bg);
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space-lg;
+
+    @include below-desktop {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// ---------- Contact (site/contact.png) ---------------------------------
+.contact {
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: $space-3xl;
+    align-items: start;
+
+    @include below-desktop {
+      grid-template-columns: 1fr;
+      gap: $space-xl;
+    }
+  }
+}
