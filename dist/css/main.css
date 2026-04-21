@@ -229,7 +229,7 @@ em {
 .gradient-text {
   color: #3B82F6;
 }
-@supports (-webkit-background-clip: text) or (background-clip: text) {
+@supports ((-webkit-background-clip: text) or (background-clip: text)) and (-webkit-text-fill-color: transparent) {
   .gradient-text {
     background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
     -webkit-background-clip: text;
@@ -989,7 +989,7 @@ textarea.form-control {
 .hero__headline .hero__accent {
   color: #3B82F6;
 }
-@supports (-webkit-background-clip: text) or (background-clip: text) {
+@supports ((-webkit-background-clip: text) or (background-clip: text)) and (-webkit-text-fill-color: transparent) {
   .hero__headline .hero__accent {
     background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
     -webkit-background-clip: text;
