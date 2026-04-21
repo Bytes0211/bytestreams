@@ -94,5 +94,5 @@ em     { font-style: italic; }
 
 // Gradient headline helper
 .gradient-text {
-  @include gradient-text;
+  @include inherit-text-color;
 }

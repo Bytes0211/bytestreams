@@ -41,7 +41,7 @@ Changed the gradient-text mixin to use `color: inherit;` instead of a hardcoded 
 
 ## Related
 
-- Closes issue #3 (blue block rendering in production)
+- Closes issue #5 (blue block rendering in production)
 
 ---
 

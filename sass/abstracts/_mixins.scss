@@ -74,7 +74,7 @@
   padding: $space-xl;
 }
 
-@mixin gradient-text {
+@mixin inherit-text-color {
   // Note: background-clip: text can render as a solid rectangle instead of
   // clipping to glyphs in some production rendering paths. For hero accents,
   // inherit parent text color for consistent rendering.
