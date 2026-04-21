@@ -24,6 +24,13 @@
     padding-bottom: $space-md;
   }
 
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
   &__logo {
     display: inline-flex;
     align-items: center;
@@ -42,6 +49,18 @@
       display: block;
       vertical-align: middle;
       object-fit: contain;
+    }
+  }
+
+  &__tagline {
+    font-size: $font-size-tiny;
+    color: var(--text-muted);
+    letter-spacing: $ls-tiny;
+    margin: 0;
+    padding-left: 2px;
+
+    @include mobile {
+      display: none;
     }
   }
 

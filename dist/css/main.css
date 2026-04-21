@@ -227,11 +227,16 @@ em {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: #3B82F6;
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .gradient-text {
+    background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
 }
 
 .header {
@@ -260,6 +265,12 @@ em {
   padding-top: 16px;
   padding-bottom: 16px;
 }
+.header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
 .header__logo {
   display: inline-flex;
   align-items: center;
@@ -277,6 +288,18 @@ em {
   display: block;
   vertical-align: middle;
   object-fit: contain;
+}
+.header__tagline {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  margin: 0;
+  padding-left: 2px;
+}
+@media (max-width: 599px) {
+  .header__tagline {
+    display: none;
+  }
 }
 @media (max-width: 1023px) {
   .header__nav {
@@ -964,11 +987,18 @@ textarea.form-control {
   }
 }
 .hero__headline .hero__accent {
-  background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: #3B82F6;
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .hero__headline .hero__accent {
+    background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+.hero__headline .hero__accent {
   display: inline-block;
 }
 .hero__description {

@@ -11,10 +11,11 @@ automation. Built as a static single-page site using the same tech stack as the
 The site follows the [ByteStreams Brand Kit v1.0](./ByteStreams-Brand-Kit.pdf)
 and the layout in `site/*.png`:
 
-- **Hero** — "Build Your Digital Future" headline with primary CTA
+- **Hero** — "Build Your Digital Future" headline with brand-aligned description copy and primary CTA
 - **About** — Company intro + four stat cards (10+/500+/1000+/50+)
 - **Features** — "Why Choose Us" 3×2 feature grid
 - **Contact** — Contact info + form
+- **Header** — Logo with "Smarter Workflows, Stronger Results." tagline beneath (desktop only)
 - **Footer** — Logo, tagline, and Product / Company / Legal columns
 
 Dark-mode-first per brand guidelines (§7.1), with an alternate light palette

@@ -75,11 +75,17 @@
 }
 
 @mixin gradient-text {
-  background: $brand-gradient;
-  -webkit-background-clip: text;
-          background-clip: text;
-  -webkit-text-fill-color: transparent;
-          color: transparent;
+  // Fallback: solid brand blue so text is always visible, even if
+  // background-clip: text isn't honoured by the browser / rendering path.
+  color: $flow-blue;
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    background: $brand-gradient;
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+            color: transparent;
+  }
 }
 
 // ---------- Visually hidden ---------------------------------------------
