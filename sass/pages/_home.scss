@@ -89,7 +89,7 @@
     }
 
     .hero__accent {
-      @include gradient-text;
+      @include inherit-text-color;
       display: inline-block;
     }
   }

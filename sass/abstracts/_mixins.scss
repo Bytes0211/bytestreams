@@ -74,20 +74,11 @@
   padding: $space-xl;
 }
 
-@mixin gradient-text {
-  // Fallback: solid brand blue so text is always visible, even if
-  // background-clip: text isn't honoured by the browser / rendering path.
-  color: $flow-blue;
-
-  // Only enable transparent text when both clipping and text-fill are
-  // supported; this prevents rectangular gradient blocks in some engines.
-  @supports (((-webkit-background-clip: text) or (background-clip: text)) and (-webkit-text-fill-color: transparent)) {
-    background: $brand-gradient;
-    -webkit-background-clip: text;
-            background-clip: text;
-    -webkit-text-fill-color: transparent;
-            color: transparent;
-  }
+@mixin inherit-text-color {
+  // Note: background-clip: text can render as a solid rectangle instead of
+  // clipping to glyphs in some production rendering paths. For hero accents,
+  // inherit parent text color for consistent rendering.
+  color: inherit;
 }
 
 // ---------- Visually hidden ---------------------------------------------
