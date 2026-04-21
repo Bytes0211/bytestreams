@@ -79,7 +79,9 @@
   // background-clip: text isn't honoured by the browser / rendering path.
   color: $flow-blue;
 
-  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  // Only enable transparent text when both clipping and text-fill are
+  // supported; this prevents rectangular gradient blocks in some engines.
+  @supports (((-webkit-background-clip: text) or (background-clip: text)) and (-webkit-text-fill-color: transparent)) {
     background: $brand-gradient;
     -webkit-background-clip: text;
             background-clip: text;
