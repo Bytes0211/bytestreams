@@ -16,7 +16,11 @@ and the layout in `site/*.png`:
 - **Features** — "Why Choose Us" 3×2 feature grid
 - **Contact** — Contact info + form
 - **Header** — Logo with "Smarter Workflows, Stronger Results." tagline beneath (desktop only)
-- **Footer** — Logo, tagline, and Product / Company / Legal columns
+- **Footer** — Row-based site map next to brand block:
+  - Company -> About -> Security
+  - Product -> DialTone.menu -> DialTone.med (comming soon) -> Features
+  - Legal -> Privacy -> Terms -> Cookie Policy
+- **Legal pages** — Dedicated `privacy.html`, `terms.html`, and `cookies.html`
 
 Dark-mode-first per brand guidelines (§7.1), with an alternate light palette
 already wired up via `body[data-theme="light"]`.
@@ -50,9 +54,12 @@ Then deploy `index.html`, `dist/`, `js/`, and `assets/` to any static host.
 
 ## 📁 Structure
 
-```
+```text
 bytestreams/
 ├── index.html
+├── privacy.html
+├── terms.html
+├── cookies.html
 ├── js/main.js
 ├── sass/
 │   ├── abstracts/   # _variables.scss, _mixins.scss (brand tokens)
@@ -62,9 +69,8 @@ bytestreams/
 │   ├── pages/       # _home.scss
 │   └── main.scss    # entry point
 ├── dist/css/main.css   # generated — do not edit
-├── assets/logo.svg, favicon.svg
-├── site/               # reference screenshots
-├── branding.md         # condensed brand notes
+├── assets/             # logos, favicon, brand marks
+├── docs/               # policy and campaign copy/source docs
 └── ByteStreams-Brand-Kit.pdf  # full brand kit v1.0
 ```
 

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SMS Terms &amp; Consent · ByteStreams LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #f5efe6;
+    --paper-warm: #ebe3d5;
+    --accent: #c8391a;
+    --muted: #6b5d4f;
+    --line: #2a211a;
+    --gold: #b89968;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* NAV */
+  nav {
+    border-bottom: 1px solid var(--line);
+    padding: 1.25rem 0;
+    background: var(--paper);
+  }
+  nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1240px;
+  }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: baseline;
+  }
+  .logo::before {
+    content: "●";
+    color: var(--accent);
+    font-size: 0.7em;
+    margin-right: 0.4rem;
+  }
+  .nav-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* HEADER */
+  .doc-header {
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .doc-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 1rem;
+  }
+  .summary-box {
+    margin-top: 2rem;
+    padding: 1.5rem 1.75rem;
+    background: var(--paper-warm);
+    border-left: 3px solid var(--accent);
+  }
+  .summary-box p {
+    font-size: 0.97rem;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* CONTENT */
+  main {
+    padding: 3rem 0 5rem;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.7rem;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(26, 20, 16, 0.15);
+  }
+  h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-right: 0.7rem;
+    letter-spacing: 0.1em;
+    vertical-align: middle;
+  }
+
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin: 1.75rem 0 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 0.98rem;
+    margin-bottom: 1.1rem;
+    color: var(--ink);
+  }
+
+  ul, ol {
+    margin: 0 0 1.1rem 1.5rem;
+  }
+  li {
+    font-size: 0.98rem;
+    margin-bottom: 0.5rem;
+  }
+  ul li::marker {
+    color: var(--accent);
+  }
+
+  strong { font-weight: 600; }
+
+  a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  a:hover { color: var(--ink); }
+
+  code, .kbd {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--paper-warm);
+    padding: 0.1rem 0.4rem;
+    font-size: 0.88em;
+    border-radius: 2px;
+  }
+
+  .callout {
+    padding: 1.25rem 1.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    margin: 1.5rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.87rem;
+    line-height: 1.6;
+  }
+  .callout strong {
+    color: var(--gold);
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(26, 20, 16, 0.15);
+  }
+  th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid var(--line);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 0;
+    background: var(--ink);
+    color: rgba(245, 239, 230, 0.55);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 1240px;
+  }
+  footer a {
+    color: rgba(245, 239, 230, 0.8);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--gold); }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 2rem; }
+    .doc-header { padding: 2.5rem 0 2rem; }
+    footer .container { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">ByteStreams</div>
+    <div class="nav-meta">Compliance · SMS Terms</div>
+  </div>
+</nav>
+
+<header class="doc-header">
+  <div class="container">
+    <div class="eyebrow">SMS Text Messaging Terms &amp; Consent</div>
+    <h1>How our platform <em>handles text messaging.</em></h1>
+    <div class="doc-meta">Effective April 22, 2026 · ByteStreams LLC · 10DLC Compliant</div>
+    <div class="summary-box">
+      <p>ByteStreams LLC operates DialTone, an AI voice ordering platform. When you place an order through DialTone's voice agent, we send you a Stripe payment link via SMS to complete your purchase, followed by a confirmation and an order-ready update. The restaurant you ordered from is the sender of these messages; ByteStreams is the platform that delivers them. This page explains how consent is obtained, what messages you'll receive, and how to stop them at any time.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <h2><span class="num">01</span>About ByteStreams and DialTone</h2>
+    <p>ByteStreams LLC is a Tennessee-registered limited liability company. We operate DialTone, an AI voice ordering platform used by restaurants to answer inbound customer calls and take orders. When a restaurant using DialTone sends you an SMS message, the restaurant is the sender of record. ByteStreams acts as the Communication Service Provider (CSP) that delivers the message through registered 10DLC infrastructure.</p>
+    <p>You can reach us at:</p>
+    <ul>
+      <li><strong>ByteStreams LLC</strong> · 501 Union St Ste 545, Nashville, TN 37219</li>
+      <li>Email: <a href="mailto:hello@bytestreams.ai">hello@bytestreams.ai</a></li>
+      <li>Phone: <a href="tel:+16292829555">629-282-9555</a></li>
+    </ul>
+
+    <h2><span class="num">02</span>Consent &mdash; How You Opt In</h2>
+    <p>You will only receive SMS messages from a restaurant using DialTone if you have provided express consent through one of the following channels:</p>
+
+    <h3>Voice consent during a phone order</h3>
+    <p>When you call a restaurant that uses DialTone, our AI voice agent captures your SMS consent at the start of the call, before taking your order. This is because completing your order requires us to text you a Stripe payment link, and we won't take your order unless we have permission to send that text. The exact language the agent uses is:</p>
+    <div class="callout">
+      <strong>Agent Script · Voice Consent</strong>
+      "Thanks for calling [Restaurant Name]! I can take your order right now. Just so you know, to finish your order I'll need to text you a payment link from Stripe, and I'll also text you a confirmation when payment clears and another text when your order is ready. Message and data rates may apply, and you can reply STOP anytime to unsubscribe. Is it OK to text you at the number you're calling from?"
+    </div>
+    <p>If you say yes, the agent will read back the last four digits of the number you're calling from (or a different number if you provide one) and confirm it's the right number for texts before proceeding. Your verbal consent is recorded, time-stamped, and retained as proof of opt-in.</p>
+    <p>If you say no, the agent will politely transfer you to restaurant staff so they can take your order directly. No SMS messages will be sent and no consent record will be created.</p>
+
+    <h3>Website consent during online ordering</h3>
+    <p>When you place an order on a restaurant's website that uses DialTone, you may see two consent checkboxes. The first is required to place the order (because we need to text you a payment link); the second is optional:</p>
+    <div class="callout">
+      <strong>Required Checkbox · Transactional</strong>
+      "Yes, text me a Stripe payment link, order confirmation, and pickup/delivery updates from [Restaurant Name]. Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe. See our Privacy Policy and SMS Terms."
+    </div>
+    <div class="callout">
+      <strong>Optional Checkbox · Promotional</strong>
+      "Also text me occasional offers from [Restaurant Name], up to 2 per month. Reply STOP to unsubscribe."
+    </div>
+    <p>Both checkboxes are unchecked by default. You must affirmatively check the required checkbox to place the order. The promotional checkbox is entirely optional and can be left unchecked. No pre-checked boxes, no opt-in bundled into unrelated agreements.</p>
+
+    <h2><span class="num">03</span>What Messages You'll Receive</h2>
+    <p>Opted-in customers may receive the following message types from the restaurant:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Purpose</th>
+          <th>Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Payment link</td>
+          <td>A secure Stripe payment link to complete your order</td>
+          <td>1 per order</td>
+        </tr>
+        <tr>
+          <td>Payment confirmation</td>
+          <td>Confirms your payment cleared and recaps the order</td>
+          <td>1 per order</td>
+        </tr>
+        <tr>
+          <td>Order ready / status update</td>
+          <td>Notifies you when your order is ready for pickup or out for delivery</td>
+          <td>1&ndash;2 per order</td>
+        </tr>
+        <tr>
+          <td>Reservation reminder</td>
+          <td>Reminds you of an upcoming reservation (where supported)</td>
+          <td>1 per reservation</td>
+        </tr>
+        <tr>
+          <td>Promotional</td>
+          <td>Occasional offers or menu updates (only if you opted in to promotional messages)</td>
+          <td>Up to 2 per month</td>
+        </tr>
+        <tr>
+          <td>HELP response</td>
+          <td>Sent in reply to your HELP request</td>
+          <td>As requested</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Transactional messages (payment link, payment confirmation, order ready) are required to complete a voice order. If you decline consent during the call, the agent will transfer you to restaurant staff so your order can be taken directly — no SMS messages will be sent. Promotional messages are always optional and separately opted-in.</p>
+
+    <h2><span class="num">04</span>Message and Data Rates</h2>
+    <p>Message and data rates may apply, depending on your mobile plan and carrier. ByteStreams and the restaurant do not charge you for SMS messages; however, your wireless carrier may. Please check your plan for details.</p>
+
+    <h2><span class="num">05</span>How to Stop Receiving Messages</h2>
+    <p>You can opt out at any time by replying any of the following keywords to any message:</p>
+    <ul>
+      <li><code>STOP</code></li>
+      <li><code>END</code></li>
+      <li><code>CANCEL</code></li>
+      <li><code>UNSUBSCRIBE</code></li>
+      <li><code>QUIT</code></li>
+    </ul>
+    <p>Once you opt out, you will receive one final confirmation message:</p>
+    <div class="callout">
+      <strong>Opt-Out Confirmation</strong>
+      "[Restaurant Name]: You've opted out and will no longer receive messages. To re-subscribe, reply START."
+    </div>
+    <p>You will not receive further messages from that restaurant unless you explicitly opt back in. Opt-outs are processed immediately and automatically by DialTone's platform.</p>
+
+    <h2><span class="num">06</span>How to Get Help</h2>
+    <p>Reply <code>HELP</code> or <code>INFO</code> to any message to receive the restaurant's support contact information. You can also contact ByteStreams directly at <a href="mailto:hello@bytestreams.ai">hello@bytestreams.ai</a> or <a href="tel:+16292829555">629-282-9555</a> if you have questions about the messaging platform itself.</p>
+
+    <h2><span class="num">07</span>Supported Carriers</h2>
+    <p>DialTone messages are sent through registered 10DLC infrastructure and are supported on all major U.S. wireless carriers including AT&amp;T, T-Mobile, Verizon, and their subsidiaries and MVNOs. Carriers are not liable for delayed or undelivered messages.</p>
+
+    <h2><span class="num">08</span>Privacy and Data Sharing</h2>
+    <p>SMS opt-in data (including your phone number and the fact that you consented to receive messages) is <strong>not shared with third parties for marketing or promotional purposes</strong>. Specifically:</p>
+    <ul>
+      <li>We do not sell your phone number.</li>
+      <li>We do not share your phone number with marketing partners, data brokers, or affiliates for their own marketing use.</li>
+      <li>We share your phone number only with service providers necessary to deliver messages (such as Twilio and The Campaign Registry) and with the specific restaurant you gave consent to.</li>
+    </ul>
+    <p>For full details on how we handle personal data, see our <a href="/privacy">Privacy Policy</a>.</p>
+
+    <h2><span class="num">09</span>Eligibility</h2>
+    <p>SMS messaging through DialTone is intended for recipients who are at least 18 years old, or who are old enough to consent to receive commercial SMS messages under applicable state law. If you are a minor, please do not provide your phone number or consent to receive messages without the involvement of a parent or guardian.</p>
+
+    <h2><span class="num">10</span>Recording and Retention</h2>
+    <p>Voice consents are recorded and retained as proof of opt-in. Consent records are kept for a minimum of four (4) years after the most recent message sent to the opted-in number, or longer if required by applicable law. Website consents are logged with timestamp, IP address, and the exact consent language displayed at the time of opt-in.</p>
+
+    <h2><span class="num">11</span>Restaurants Using DialTone</h2>
+    <p>If you are a restaurant using DialTone, your obligations around SMS consent are governed by the DialTone Terms of Service and the Data Processing Addendum available to you through your DialTone account. In summary: you are the sender of messages to your customers, and you are responsible for ensuring that every customer you message has provided valid consent. ByteStreams provides the infrastructure and consent-capture tools; the restaurant provides the relationship with its customers.</p>
+
+    <h2><span class="num">12</span>Updates to These Terms</h2>
+    <p>We may update these SMS Terms from time to time to reflect changes in our practices, technology, legal requirements, or carrier rules. The effective date at the top of this page will be updated when we do. Continued use of the messaging service after the effective date constitutes acceptance.</p>
+
+    <h2><span class="num">13</span>Contact</h2>
+    <p>Questions about these terms, your consent, or a message you received can be directed to:</p>
+    <ul>
+      <li><strong>ByteStreams LLC</strong></li>
+      <li>501 Union St Ste 545, Nashville, TN 37219</li>
+      <li>Email: <a href="mailto:hello@bytestreams.ai">hello@bytestreams.ai</a></li>
+      <li>Phone: <a href="tel:+16292829555">629-282-9555</a></li>
+    </ul>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>© 2026 BYTESTREAMS LLC · NASHVILLE, TN</div>
+    <div>
+      <a href="/privacy">Privacy</a> &nbsp;·&nbsp;
+      <a href="/terms">Terms</a> &nbsp;·&nbsp;
+      <a href="/sms-terms">SMS Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

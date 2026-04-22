@@ -96,3 +96,38 @@ em     { font-style: italic; }
 .gradient-text {
   @include inherit-text-color;
 }
+
+// Long-form legal/policy content
+.legal-doc {
+  max-width: 840px;
+  margin: 0 auto;
+
+  p,
+  ul {
+    margin-bottom: $space-md;
+  }
+
+  h2 {
+    margin-top: $space-2xl;
+    margin-bottom: $space-md;
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: $space-lg;
+    color: var(--text-muted);
+  }
+
+  li {
+    margin-bottom: $space-sm;
+    line-height: $lh-body;
+  }
+
+  strong {
+    color: var(--text);
+  }
+
+  a {
+    word-break: break-word;
+  }
+}
