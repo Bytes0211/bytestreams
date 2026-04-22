@@ -9,7 +9,7 @@ AI agents (Oz / Warp) across branches and sessions.
 
 **Agent:** Oz (Warp)
 
-### Changes Made
+### Updates Applied
 
 #### Hero section copy (`index.html`)
 Updated the hero description from generic placeholder text to brand-aligned
@@ -42,7 +42,7 @@ New BEM modifiers to support the header brand block:
   documenting the branch changes.
 - Created GitHub issue [#1](https://github.com/Bytes0211/bytestreams/issues/1).
 
-### Files Modified
+### Files Modified (2026-04-22)
 - `index.html`
 - `privacy.html`
 - `terms.html`
@@ -51,3 +51,51 @@ New BEM modifiers to support the header brand block:
 - `README.md`
 - `AGENTS.md` *(this file)*
 - `github/ISSUES/copy-updates-header-tagline.md` *(new)*
+
+---
+
+## 2026-04-22 — `copy/footer-and-legal-pages`
+
+**Agent:** GitHub Copilot
+
+### Changes Made
+
+#### Cookie Policy page (`cookies.html`)
+Created a dedicated Cookie Policy page using copy from `docs/coookie-policy.md` and wired it into the existing legal-page shell (header, section header, footer).
+
+#### Footer information architecture (`index.html`, `privacy.html`, `terms.html`, `cookies.html`)
+Reworked footer navigation from stacked columns into a row-first site map beside the logo, matching requested reading order:
+
+- **Company -> About -> Security**
+- **Product -> DialTone.menu -> DialTone.med (comming soon) -> Features**
+- **Legal -> Privacy -> Terms -> Cookie Policy**
+
+Implemented arrow separators (`->`) between row links and kept row labels aligned on the left.
+
+#### Product link updates
+- Updated **DialTone.menu** to link to `https://dialtone.menu` across all footer instances.
+- Kept **DialTone.med** as placeholder (`#`) and updated label text to **DialTone.med (comming soon)** per request.
+
+#### Sass updates (`sass/layout/_footer.scss`, `sass/base/_typography.scss`)
+- Added footer row-map styling to support top-down labels and left-to-right links.
+- Added long-form legal content helper (`.legal-doc`) used by legal/policy pages.
+- Regenerated `dist/css/main.css`.
+
+#### Documentation and tracking
+- Updated `README.md` overview and structure sections to include:
+  - row-based footer map
+  - dedicated legal pages (`privacy.html`, `terms.html`, `cookies.html`)
+- Created issue note `github/ISSUES/copy-updates-footer-navigation.md`.
+- Created GitHub issue [#7](https://github.com/Bytes0211/bytestreams/issues/7).
+
+### Files Modified
+- `index.html`
+- `privacy.html`
+- `terms.html`
+- `cookies.html` *(new)*
+- `sass/layout/_footer.scss`
+- `sass/base/_typography.scss`
+- `dist/css/main.css` *(generated)*
+- `README.md`
+- `AGENTS.md` *(this file)*
+- `github/ISSUES/copy-updates-footer-navigation.md` *(new)*
