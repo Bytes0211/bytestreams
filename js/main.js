@@ -135,6 +135,8 @@
   const status = $('#formStatus');
 
   if (form && status) {
+    const formEndpoint = 'https://formsubmit.co/ajax/hello@bytestreams.ai';
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -157,17 +159,31 @@
       setStatus('Sending your message...', 'success');
 
       try {
-        const response = await fetch('/api/contact', {
+        const response = await fetch(formEndpoint, {
           method: 'POST',
           headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ name, email, message })
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+            _subject: `ByteStreams Contact: ${name}`,
+            _captcha: 'false',
+            _template: 'table',
+            _source: window.location.origin
+          })
         });
 
         const payload = await response.json().catch(() => ({}));
+        const providerSuccess = payload && String(payload.success).toLowerCase() === 'true';
 
-        if (!response.ok) {
+        if (!response.ok || !providerSuccess) {
+          const needsActivation = String(payload.message || '').toLowerCase().includes('needs activation');
+          if (needsActivation) {
+            throw new Error('Contact form setup is pending activation. Please email hello@bytestreams.ai for now.');
+          }
           throw new Error(payload.error || 'Unable to send your message right now.');
         }
 

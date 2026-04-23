@@ -48,15 +48,27 @@ async function handleContact(request, env) {
     return jsonResponse({ error: 'Contact destination is not configured.' }, 503);
   }
 
+  const requestUrl = new URL(request.url);
+  const requestOrigin = request.headers.get('origin') || requestUrl.origin;
+
   const result = await forwardToFormSubmit({
     destinationEmail,
     name,
     email,
     message,
-    origin: request.headers.get('origin') || 'unknown'
+    origin: requestOrigin
   });
 
   if (!result.ok) {
+    const providerMessage = (result.providerMessage || '').toLowerCase();
+    const needsActivation = providerMessage.includes('needs activation');
+
+    if (needsActivation) {
+      return jsonResponse({
+        error: 'Contact form setup is pending activation. Please email hello@bytestreams.com for now.'
+      }, 503);
+    }
+
     return jsonResponse({
       error: 'Message delivery failed. Please try again shortly.'
     }, 502);
@@ -72,7 +84,9 @@ async function forwardToFormSubmit({ destinationEmail, name, email, message, ori
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Origin: origin,
+      Referer: `${origin}/`
     },
     body: JSON.stringify({
       name,
@@ -85,7 +99,19 @@ async function forwardToFormSubmit({ destinationEmail, name, email, message, ori
     })
   });
 
-  return { ok: response.ok };
+  let payload;
+  try {
+    payload = await response.json();
+  } catch {
+    payload = null;
+  }
+
+  const providerSuccess = payload && String(payload.success).toLowerCase() === 'true';
+
+  return {
+    ok: response.ok && providerSuccess,
+    providerMessage: payload && payload.message ? String(payload.message) : ''
+  };
 }
 
 function normalizeText(value, maxLength) {
