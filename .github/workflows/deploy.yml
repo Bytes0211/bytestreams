@@ -53,8 +53,11 @@ jobs:
           rm -rf public
           mkdir -p public
           # Ship only what the browser needs
-          cp index.html privacy.html terms.html public/
+          cp *.html public/
           cp -r assets dist js public/
+          # Fail fast if required legal pages are missing from the artifact.
+          test -f public/cookies.html
+          test -f public/sms-terms.html
           # Strip sourcemaps from production (optional — remove if you want them)
           find public/dist -name '*.map' -delete || true
 
