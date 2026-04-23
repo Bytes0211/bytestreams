@@ -135,7 +135,7 @@
   const status = $('#formStatus');
 
   if (form && status) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const data = new FormData(form);
@@ -154,9 +154,28 @@
         return;
       }
 
-      // TODO: wire to real backend / form service.
-      setStatus('Thanks! We’ll get back to you shortly.', 'success');
-      form.reset();
+      setStatus('Sending your message...', 'success');
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name, email, message })
+        });
+
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(payload.error || 'Unable to send your message right now.');
+        }
+
+        setStatus('Thanks! We’ll get back to you shortly.', 'success');
+        form.reset();
+      } catch (err) {
+        setStatus(err.message || 'Unable to send your message right now.', 'error');
+      }
     });
 
     function setStatus(msg, kind) {
