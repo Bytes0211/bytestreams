@@ -1,0 +1,100 @@
+const JSON_HEADERS = {
+  'content-type': 'application/json; charset=utf-8'
+};
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (url.pathname === '/api/contact') {
+      return handleContact(request, env);
+    }
+
+    return env.ASSETS.fetch(request);
+  }
+};
+
+async function handleContact(request, env) {
+  if (request.method !== 'POST') {
+    return jsonResponse({ error: 'Method not allowed' }, 405);
+  }
+
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return jsonResponse({ error: 'Invalid request body' }, 400);
+  }
+
+  const name = normalizeText(payload.name, 120);
+  const email = normalizeText(payload.email, 254);
+  const message = normalizeText(payload.message, 5000);
+  const honeypot = normalizeText(payload.website || '', 200);
+
+  if (honeypot) {
+    return jsonResponse({ ok: true });
+  }
+
+  if (!name || !email || !message) {
+    return jsonResponse({ error: 'Please fill out all fields.' }, 400);
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return jsonResponse({ error: 'Please provide a valid email address.' }, 400);
+  }
+
+  const destinationEmail = env.CONTACT_EMAIL;
+  if (!destinationEmail) {
+    return jsonResponse({ error: 'Contact destination is not configured.' }, 503);
+  }
+
+  const result = await forwardToFormSubmit({
+    destinationEmail,
+    name,
+    email,
+    message,
+    origin: request.headers.get('origin') || 'unknown'
+  });
+
+  if (!result.ok) {
+    return jsonResponse({
+      error: 'Message delivery failed. Please try again shortly.'
+    }, 502);
+  }
+
+  return jsonResponse({ ok: true });
+}
+
+async function forwardToFormSubmit({ destinationEmail, name, email, message, origin }) {
+  const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(destinationEmail)}`;
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      message,
+      _subject: `ByteStreams Contact: ${name}`,
+      _captcha: 'false',
+      _template: 'table',
+      _source: `bytestreams.ai (${origin})`
+    })
+  });
+
+  return { ok: response.ok };
+}
+
+function normalizeText(value, maxLength) {
+  return String(value || '').trim().slice(0, maxLength);
+}
+
+function jsonResponse(body, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: JSON_HEADERS
+  });
+}

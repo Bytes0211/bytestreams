@@ -10,8 +10,12 @@
 # (`bytestreams.ai`, `www.bytestreams.ai`) stay intact.
 
 name = "ancient-mountain-5dad"
+main = "worker.js"
 compatibility_date = "2026-04-21"
 compatibility_flags = []
+
+[vars]
+CONTACT_EMAIL = "hello@bytestreams.com"
 
 # Assets directory is the `public/` folder, which the GitHub Actions
 # workflow builds fresh on every deploy (copying only production files
@@ -23,3 +27,20 @@ directory = "./public"
 # SPA, so unknown paths should return 404 rather than rewriting to
 # /index.html.
 not_found_handling = "none"
+
+# Keep Worker observability settings in source control so dashboard and
+# CI/CD deployments stay consistent.
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false
+persist = true
+head_sampling_rate = 1
