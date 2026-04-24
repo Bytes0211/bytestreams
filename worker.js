@@ -12,7 +12,7 @@ export default {
 
 async function routeRequest(request, env, url) {
   if (url.pathname === '/robots.txt') {
-    return handleRobots();
+    return handleRobots(url);
   }
 
   if (url.pathname === '/favicon.ico') {
@@ -34,7 +34,10 @@ async function routeRequest(request, env, url) {
   return env.ASSETS.fetch(request);
 }
 
-function handleRobots() {
+function handleRobots(url) {
+  // Build the Sitemap URL from `url.origin` so the directive is correct
+  // on any deployment (preview, staging, production) — matches the
+  // pattern in `handleSitemap` for consistency.
   const body = [
     'User-agent: *',
     'Allow: /',
@@ -44,7 +47,7 @@ function handleRobots() {
     'User-agent: GPTBot',
     'Disallow: /',
     '',
-    'Sitemap: https://bytestreams.ai/sitemap.xml',
+    `Sitemap: ${url.origin}/sitemap.xml`,
     ''
   ].join('\n');
 
