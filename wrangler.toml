@@ -14,8 +14,25 @@ main = "worker.js"
 compatibility_date = "2026-04-21"
 compatibility_flags = []
 
+# Contact form destination. The Worker's `/api/contact` handler sends
+# validated submissions via Resend's API; messages are delivered here.
+# `hello@bytestreams.ai` is the monitored inbox (Cloudflare Email Routing
+# forwards it to scotton's Workspace). Previously set to `.com` by
+# mistake — corrected during the Resend migration.
 [vars]
-CONTACT_EMAIL = "hello@bytestreams.com"
+CONTACT_EMAIL = "hello@bytestreams.ai"
+
+# Required secret (not stored in this file): RESEND_API_KEY
+# The `/api/contact` handler uses this to authenticate with Resend's
+# API. Set it once per environment via:
+#
+#   npx wrangler secret put RESEND_API_KEY
+#
+# The value is encrypted at rest by Cloudflare and exposed to the
+# Worker at runtime as `env.RESEND_API_KEY`. Never commit the raw key.
+# If the secret is missing, `/api/contact` returns a user-friendly 503
+# directing submitters to retry (no mailto fallback — keeps visitors
+# in the form rather than bouncing them to a mail app).
 
 # Assets directory is the `public/` folder, which the GitHub Actions
 # workflow builds fresh on every deploy (copying only production files
