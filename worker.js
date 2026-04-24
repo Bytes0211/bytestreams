@@ -6,13 +6,102 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (url.pathname === '/api/contact') {
-      return handleContact(request, env);
-    }
-
-    return env.ASSETS.fetch(request);
+    return routeRequest(request, env, url);
   }
 };
+
+async function routeRequest(request, env, url) {
+  if (url.pathname === '/robots.txt') {
+    return handleRobots();
+  }
+
+  if (url.pathname === '/favicon.ico') {
+    return handleFavicon(request, env);
+  }
+
+  if (url.pathname === '/.well-known/security.txt') {
+    return handleSecurityTxt();
+  }
+
+  if (url.pathname === '/sitemap.xml') {
+    return handleSitemap(url);
+  }
+
+  if (url.pathname === '/api/contact') {
+    return handleContact(request, env);
+  }
+
+  return env.ASSETS.fetch(request);
+}
+
+function handleRobots() {
+  const body = [
+    'User-agent: *',
+    'Allow: /',
+    'Disallow: /admin/',
+    'Disallow: /api/',
+    '',
+    'User-agent: GPTBot',
+    'Disallow: /',
+    '',
+    'Sitemap: https://bytestreams.ai/sitemap.xml',
+    ''
+  ].join('\n');
+
+  return new Response(body, {
+    headers: {
+      'content-type': 'text/plain; charset=utf-8'
+    }
+  });
+}
+
+async function handleFavicon(request, env) {
+  // Browsers request `/favicon.ico` by default even when the HTML declares
+  // a different favicon (ours is the SVG icon in `/assets/`). Rewrite to
+  // the actual asset path so the tab icon still renders cleanly.
+  const faviconUrl = new URL(request.url);
+  faviconUrl.pathname = '/assets/bytestreams-icon-256.svg';
+  const faviconRequest = new Request(faviconUrl.toString(), request);
+  return env.ASSETS.fetch(faviconRequest);
+}
+
+function handleSecurityTxt() {
+  const body = [
+    'Contact: mailto:security@bytestreams.ai',
+    'Expires: 2027-04-23T00:00:00.000Z',
+    'Preferred-Languages: en',
+    ''
+  ].join('\n');
+
+  return new Response(body, {
+    headers: {
+      'content-type': 'text/plain; charset=utf-8'
+    }
+  });
+}
+
+function handleSitemap(url) {
+  const pages = [
+    '/',
+    '/privacy.html',
+    '/terms.html',
+    '/sms-terms.html',
+    '/cookies.html'
+  ];
+  const body = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...pages.map((path) => `  <url><loc>${escapeXml(`${url.origin}${path}`)}</loc></url>`),
+    '</urlset>',
+    ''
+  ].join('\n');
+
+  return new Response(body, {
+    headers: {
+      'content-type': 'application/xml; charset=utf-8'
+    }
+  });
+}
 
 async function handleContact(request, env) {
   if (request.method !== 'POST') {
@@ -90,6 +179,15 @@ async function forwardToFormSubmit({ destinationEmail, name, email, message, ori
 
 function normalizeText(value, maxLength) {
   return String(value || '').trim().slice(0, maxLength);
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
 }
 
 function jsonResponse(body, status = 200) {

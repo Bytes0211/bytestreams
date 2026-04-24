@@ -23,10 +23,27 @@ CONTACT_EMAIL = "hello@bytestreams.com"
 # package.json, etc.) never ship to the Worker.
 [assets]
 directory = "./public"
-# not_found_handling = "none" — this is a static multi-page site, not an
-# SPA, so unknown paths should return 404 rather than rewriting to
-# /index.html.
-not_found_handling = "none"
+# `binding = "ASSETS"` exposes the assets collection to the Worker as
+# `env.ASSETS`, which `worker.js` uses to proxy `/favicon.ico` to the
+# ByteStreams icon asset and to resolve unmatched paths. Without this
+# binding, `env.ASSETS` is undefined and those fallbacks fail silently.
+binding = "ASSETS"
+# not_found_handling = "404-page" — this is a static multi-page site,
+# not an SPA, so unknown paths should return the branded /404.html
+# with a 404 status rather than rewriting to /index.html.
+not_found_handling = "404-page"
+# With `not_found_handling = "404-page"`, non-asset requests are
+# short-circuited to `/404.html` without invoking the Worker. The
+# Worker owns these dynamic paths (robots.txt, sitemap.xml, favicon
+# fallback, security.txt, contact form), so force them to run through
+# the Worker first instead of being treated as missing assets.
+run_worker_first = [
+  "/robots.txt",
+  "/sitemap.xml",
+  "/favicon.ico",
+  "/.well-known/*",
+  "/api/*"
+]
 
 # Keep Worker observability settings in source control so dashboard and
 # CI/CD deployments stay consistent.
