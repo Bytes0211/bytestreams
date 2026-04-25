@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *,
 *::before,
 *::after {
@@ -532,10 +533,15 @@ em {
   margin: 0;
   letter-spacing: 0.02em;
 }
+.footer__site-label::after {
+  content: "→";
+  color: var(--text-faded);
+  margin-left: 8px;
+}
 .footer__site-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -543,11 +549,6 @@ em {
 .footer__site-links li {
   display: inline-flex;
   align-items: center;
-}
-.footer__site-links li + li::before {
-  content: "->";
-  color: var(--text-faded);
-  margin-right: 8px;
 }
 .footer__bottom {
   border-top: 1px solid var(--border);

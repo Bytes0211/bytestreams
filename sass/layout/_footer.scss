@@ -106,12 +106,18 @@
     color: var(--text);
     margin: 0;
     letter-spacing: 0.02em;
+
+    &::after {
+      content: '\2192'; // right arrow (→)
+      color: var(--text-faded);
+      margin-left: $space-sm;
+    }
   }
 
   &__site-links {
     display: flex;
     flex-wrap: wrap;
-    gap: $space-sm;
+    gap: 10px; // slightly wider than $space-sm (8px) so links breathe
     margin: 0;
     padding: 0;
     list-style: none;
@@ -119,12 +125,6 @@
     li {
       display: inline-flex;
       align-items: center;
-    }
-
-    li + li::before {
-      content: '->';
-      color: var(--text-faded);
-      margin-right: $space-sm;
     }
   }
 
