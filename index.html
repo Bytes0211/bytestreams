@@ -284,9 +284,14 @@ US</p>
                                       placeholder="Your message..." required></textarea>
                         </div>
 
+                        <div class="honeypot" aria-hidden="true">
+                            <label for="websiteField">Leave this field empty</label>
+                            <input id="websiteField" name="website" type="text" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
 
-                        <button type="submit" class="btn btn--primary btn--block btn--lg">
+                        <button type="submit" id="submitBtn" class="btn btn--primary btn--block btn--lg">
                             Send Message
                         </button>
                     </form>

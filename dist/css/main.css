@@ -956,6 +956,15 @@ textarea.form-control {
   color: #EF4444;
 }
 
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .section {
   padding: 64px 0;
 }

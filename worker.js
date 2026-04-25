@@ -240,12 +240,12 @@ async function forwardToResend({ destinationEmail, siteName, name, email, messag
       // (shared with DialTone; verified 2026-04-24).
       from: `${siteName} <contact@send.bytestreams.ai>`,
       to: [destinationEmail],
-      // Reply-To: submitter's address, as a single-element array to
-      // match Resend's documented canonical form. The regex check
-      // upstream in `handleContact` rejects display-name / bracketed
-      // syntax (whitespace and `<>` fail the anchored
-      // `[^
-\s@]+@[^\s@]+\.[^\s@]+` pattern), so `email` is a bare address.
+      // Reply-To: the submitter's address so hitting Reply in Gmail goes
+      // straight back to the person who filled out the form. Passed as a
+      // single-element array to match Resend's documented canonical form;
+      // the regex check in `handleContact` already rejects display-name /
+      // bracketed-address syntax (whitespace and `<>` fail the anchored
+      // `[^\s@]+@[^\s@]+\.[^\s@]+` pattern), so `email` is a bare address.
       reply_to: [email],
       subject: `${siteName} Contact: ${name}`,
       text: buildTextBody({ siteName, name, email, message }),

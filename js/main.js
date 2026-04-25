@@ -130,13 +130,12 @@
     }
   }
 
-  // ---------- Contact form (client-side only feedback) ----------------
-  const form   = $('#contactForm');
-  const status = $('#formStatus');
+  // ---------- Contact form (posts to Worker at /api/contact) ----------
+  const form      = $('#contactForm');
+  const status    = $('#formStatus');
+  const submitBtn = $('#submitBtn');
 
   if (form && status) {
-    const formEndpoint = 'https://formsubmit.co/ajax/hello@bytestreams.ai';
-
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -144,46 +143,33 @@
       const name    = (data.get('name')    || '').toString().trim();
       const email   = (data.get('email')   || '').toString().trim();
       const message = (data.get('message') || '').toString().trim();
+      const website = (data.get('website') || '').toString().trim();
 
-      // Minimal validation
       if (!name || !email || !message) {
         setStatus('Please fill out all fields.', 'error');
         return;
       }
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!emailOk) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         setStatus('Please enter a valid email address.', 'error');
         return;
       }
 
+      if (submitBtn) submitBtn.disabled = true;
       setStatus('Sending your message...', 'success');
 
       try {
-        const response = await fetch(formEndpoint, {
+        const response = await fetch('/api/contact', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            name,
-            email,
-            message,
-            _subject: `ByteStreams Contact: ${name}`,
-            _captcha: 'false',
-            _template: 'table',
-            _source: window.location.origin
-          })
+          body: JSON.stringify({ name, email, message, website })
         });
 
         const payload = await response.json().catch(() => ({}));
-        const providerSuccess = payload && String(payload.success).toLowerCase() === 'true';
 
-        if (!response.ok || !providerSuccess) {
-          const needsActivation = String(payload.message || '').toLowerCase().includes('needs activation');
-          if (needsActivation) {
-            throw new Error('Contact form setup is pending activation. Please email hello@bytestreams.ai for now.');
-          }
+        if (!response.ok || !payload.ok) {
           throw new Error(payload.error || 'Unable to send your message right now.');
         }
 
@@ -191,6 +177,8 @@
         form.reset();
       } catch (err) {
         setStatus(err.message || 'Unable to send your message right now.', 'error');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
       }
     });
 
