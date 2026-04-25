@@ -8,3 +8,6 @@ public/
 
 # Wrangler local state
 .wrangler/
+
+# Local secrets for Wrangler dev
+.dev.vars

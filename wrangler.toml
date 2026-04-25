@@ -16,6 +16,7 @@ compatibility_flags = []
 
 [vars]
 CONTACT_EMAIL = "hello@bytestreams.ai"
+SITE_NAME = "ByteStreams"
 
 # Assets directory is the `public/` folder, which the GitHub Actions
 # workflow builds fresh on every deploy (copying only production files

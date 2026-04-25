@@ -44,6 +44,31 @@ npm run serve               # python3 -m http.server 8000
 
 Open `http://localhost:8000`.
 
+### Test contact/email flow in local dev
+
+The contact form posts to the Worker endpoint (`/api/contact`), so use Worker
+dev mode for end-to-end email testing.
+
+```bash
+# one-time per machine: create .dev.vars with your key
+# RESEND_API_KEY=...
+
+npm run sass
+npm run dev:worker
+```
+
+Then open `http://127.0.0.1:8787` and submit the contact form.
+
+Quick API sanity check:
+
+```bash
+curl -i -X POST http://127.0.0.1:8787/api/contact \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Dev Test","email":"you@example.com","message":"Hello from dev"}'
+```
+
+Expected success is `200` with `{"ok":true}`.
+
 ### Production build
 
 ```bash

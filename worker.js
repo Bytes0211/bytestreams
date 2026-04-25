@@ -14,6 +14,156 @@ export default {
   }
 };
 
+<<<<<<< Updated upstream
+=======
+async function routeRequest(request, env, url) {
+  // Explicit handlers for known dynamic paths.
+  if (url.pathname === '/robots.txt') {
+    return handleRobots(url);
+  }
+
+  if (url.pathname === '/favicon.ico') {
+    return handleFavicon(request, env);
+  }
+
+  if (url.pathname === '/.well-known/security.txt') {
+    return handleSecurityTxt();
+  }
+
+  if (url.pathname === '/sitemap.xml') {
+    return handleSitemap(url);
+  }
+
+  if (url.pathname === '/api/contact') {
+    return handleContact(request, env);
+  }
+
+  // For all paths not explicitly handled above, delegate to the assets binding
+  // and normalize missing lookups to 404.
+  return handleAssetRequest(request, env);
+}
+
+async function handleAssetRequest(request, env) {
+  try {
+    const response = await env.ASSETS.fetch(request);
+
+    // Missing static assets can surface as 500 from the assets binding;
+    // normalize those to 404 so crawlers and clients get the correct status.
+    if (response.status === 500 && isLookupMethod(request.method)) {
+      return notFoundResponse();
+    }
+
+    return response;
+  } catch (error) {
+    // If asset resolution throws on an unmatched path, return 404 rather
+    // than exposing an internal failure.
+    if (isLookupMethod(request.method)) {
+      console.log('ASSETS fetch lookup error:', String(error));
+      return notFoundResponse();
+    }
+
+    throw error;
+  }
+}
+
+function isLookupMethod(method) {
+  return method === 'GET' || method === 'HEAD';
+}
+
+function notFoundResponse() {
+  return new Response('Not Found', {
+    status: 404,
+    headers: {
+      'content-type': 'text/plain; charset=utf-8'
+    }
+  });
+}
+
+function handleRobots(url) {
+  // Build the Sitemap URL from `url.origin` so the directive is correct
+  // on any deployment (preview, staging, production) — matches the
+  // pattern in `handleSitemap` for consistency.
+  const body = [
+    'User-agent: *',
+    'Allow: /',
+    'Disallow: /admin/',
+    'Disallow: /api/',
+    '',
+    'User-agent: GPTBot',
+    'Disallow: /',
+    '',
+    `Sitemap: ${url.origin}/sitemap.xml`,
+    ''
+  ].join('\n');
+
+  return new Response(body, {
+    headers: {
+      'content-type': 'text/plain; charset=utf-8'
+    }
+  });
+}
+
+async function handleFavicon(request, env) {
+  // Browsers request `/favicon.ico` by default even when the HTML declares
+  // a different favicon (ours is the SVG icon in `/assets/`). Rewrite to
+  // the actual asset path so the tab icon still renders cleanly.
+  const faviconUrl = new URL(request.url);
+  faviconUrl.pathname = '/assets/bytestreams-icon-256.svg';
+  const faviconRequest = new Request(faviconUrl.toString(), request);
+  try {
+    const response = await env.ASSETS.fetch(faviconRequest);
+    if (response.status === 500 && isLookupMethod(request.method)) {
+      return notFoundResponse();
+    }
+    return response;
+  } catch (error) {
+    if (isLookupMethod(request.method)) {
+      console.log('ASSETS favicon lookup error:', String(error));
+      return notFoundResponse();
+    }
+    throw error;
+  }
+}
+
+function handleSecurityTxt() {
+  const body = [
+    'Contact: mailto:security@bytestreams.ai',
+    'Expires: 2027-04-23T00:00:00.000Z',
+    'Preferred-Languages: en',
+    ''
+  ].join('\n');
+
+  return new Response(body, {
+    headers: {
+      'content-type': 'text/plain; charset=utf-8'
+    }
+  });
+}
+
+function handleSitemap(url) {
+  const pages = [
+    '/',
+    '/privacy.html',
+    '/terms.html',
+    '/sms-terms.html',
+    '/cookies.html'
+  ];
+  const body = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...pages.map((path) => `  <url><loc>${escapeXml(`${url.origin}${path}`)}</loc></url>`),
+    '</urlset>',
+    ''
+  ].join('\n');
+
+  return new Response(body, {
+    headers: {
+      'content-type': 'application/xml; charset=utf-8'
+    }
+  });
+}
+
+>>>>>>> Stashed changes
 async function handleContact(request, env) {
   if (request.method !== 'POST') {
     return jsonResponse({ error: 'Method not allowed' }, 405);
@@ -53,6 +203,7 @@ async function handleContact(request, env) {
 
   const result = await forwardToFormSubmit({
     destinationEmail,
+    siteName: env.SITE_NAME,
     name,
     email,
     message,
@@ -77,10 +228,15 @@ async function handleContact(request, env) {
   return jsonResponse({ ok: true });
 }
 
+<<<<<<< Updated upstream
 async function forwardToFormSubmit({ destinationEmail, name, email, message, origin }) {
   const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(destinationEmail)}`;
 
   const response = await fetch(endpoint, {
+=======
+async function forwardToResend({ destinationEmail, siteName, name, email, message, apiKey }) {
+  const response = await fetch('https://api.resend.com/emails', {
+>>>>>>> Stashed changes
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -89,6 +245,7 @@ async function forwardToFormSubmit({ destinationEmail, name, email, message, ori
       Referer: `${origin}/`
     },
     body: JSON.stringify({
+<<<<<<< Updated upstream
       name,
       email,
       message,
@@ -96,6 +253,21 @@ async function forwardToFormSubmit({ destinationEmail, name, email, message, ori
       _captcha: 'false',
       _template: 'table',
       _source: `bytestreams.ai (${origin})`
+=======
+      // Sender lives on the verified `send.bytestreams.ai` Resend domain
+      // (shared with DialTone; verified 2026-04-24).
+      from: `${siteName} <contact@send.bytestreams.ai>`,
+      to: [destinationEmail],
+      // Reply-To: submitter's address, as a single-element array to
+      // match Resend's documented canonical form. The regex check
+      // upstream in `handleContact` rejects display-name / bracketed
+      // syntax (whitespace and `<>` fail the anchored
+      // `[^\s@]+@[^\s@]+\.[^\s@]+` pattern), so `email` is a bare address.
+      reply_to: [email],
+      subject: `${siteName} Contact: ${name}`,
+      text: buildTextBody({ siteName, name, email, message }),
+      html: buildHtmlBody({ siteName, name, email, message })
+>>>>>>> Stashed changes
     })
   });
 
@@ -114,6 +286,52 @@ async function forwardToFormSubmit({ destinationEmail, name, email, message, ori
   };
 }
 
+<<<<<<< Updated upstream
+=======
+function buildTextBody({ siteName, name, email, message }) {
+  return [
+    `New ${siteName} contact form submission`,
+    '',
+    `From: ${name} <${email}>`,
+    '',
+    message,
+    '',
+    '---',
+    `Submitted via the ${siteName} contact form.`,
+    'Reply directly to this email to respond to the sender.'
+  ].join('\n');
+}
+
+function buildHtmlBody({ siteName, name, email, message }) {
+  const safeSite = escapeHtml(siteName);
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message);
+  return [
+    '<!doctype html>',
+    '<html>',
+    '<body style="font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #0D1117;">',
+    `<h2 style="margin: 0 0 16px 0;">New ${safeSite} contact form submission</h2>`,
+    `<p style="margin: 0 0 8px 0;"><strong>From:</strong> ${safeName} &lt;<a href="mailto:${safeEmail}" style="color: #2563EB;">${safeEmail}</a>&gt;</p>`,
+    '<hr style="border: none; border-top: 1px solid #d0d7de; margin: 16px 0;">',
+    `<div style="white-space: pre-wrap; line-height: 1.5;">${safeMessage}</div>`,
+    '<hr style="border: none; border-top: 1px solid #d0d7de; margin: 24px 0 16px 0;">',
+    `<p style="margin: 0; font-size: 12px; color: #6b7280;">Submitted via the ${safeSite} contact form. Reply directly to this email to respond to the sender.</p>`,
+    '</body>',
+    '</html>'
+  ].join('');
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+>>>>>>> Stashed changes
 function normalizeText(value, maxLength) {
   return String(value || '').trim().slice(0, maxLength);
 }
