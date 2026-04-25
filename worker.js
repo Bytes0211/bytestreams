@@ -6,16 +6,10 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (url.pathname === '/api/contact') {
-      return handleContact(request, env);
-    }
-
-    return env.ASSETS.fetch(request);
+    return routeRequest(request, env, url);
   }
 };
 
-<<<<<<< Updated upstream
-=======
 async function routeRequest(request, env, url) {
   // Explicit handlers for known dynamic paths.
   if (url.pathname === '/robots.txt') {
@@ -163,7 +157,6 @@ function handleSitemap(url) {
   });
 }
 
->>>>>>> Stashed changes
 async function handleContact(request, env) {
   if (request.method !== 'POST') {
     return jsonResponse({ error: 'Method not allowed' }, 405);
@@ -198,27 +191,33 @@ async function handleContact(request, env) {
     return jsonResponse({ error: 'Contact destination is not configured.' }, 503);
   }
 
-  const requestUrl = new URL(request.url);
-  const requestOrigin = request.headers.get('origin') || requestUrl.origin;
+  if (!env.RESEND_API_KEY) {
+    // Surfaces in observability; client-side error keeps submitters in
+    // the form rather than bouncing them to a mail app.
+    console.log('Contact form unavailable: RESEND_API_KEY secret is not set.');
+    return jsonResponse({
+      error: 'Contact form is temporarily unavailable. Please try again shortly.'
+    }, 503);
+  }
 
-  const result = await forwardToFormSubmit({
+  const result = await forwardToResend({
     destinationEmail,
     siteName: env.SITE_NAME,
     name,
     email,
     message,
-    origin: requestOrigin
+    apiKey: env.RESEND_API_KEY
   });
 
   if (!result.ok) {
-    const providerMessage = (result.providerMessage || '').toLowerCase();
-    const needsActivation = providerMessage.includes('needs activation');
-
-    if (needsActivation) {
-      return jsonResponse({
-        error: 'Contact form setup is pending activation. Please email hello@bytestreams.com for now.'
-      }, 503);
-    }
+    // Log provider response for CF Workers observability — rate-limit
+    // reasons, invalid-key errors, and domain-unverified states all
+    // surface here. Details stay server-side.
+    console.log('Resend failure:', JSON.stringify({
+      httpStatus: result.httpStatus,
+      errorName: result.errorName,
+      errorMessage: result.errorMessage
+    }));
 
     return jsonResponse({
       error: 'Message delivery failed. Please try again shortly.'
@@ -228,32 +227,15 @@ async function handleContact(request, env) {
   return jsonResponse({ ok: true });
 }
 
-<<<<<<< Updated upstream
-async function forwardToFormSubmit({ destinationEmail, name, email, message, origin }) {
-  const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(destinationEmail)}`;
-
-  const response = await fetch(endpoint, {
-=======
 async function forwardToResend({ destinationEmail, siteName, name, email, message, apiKey }) {
   const response = await fetch('https://api.resend.com/emails', {
->>>>>>> Stashed changes
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Origin: origin,
-      Referer: `${origin}/`
+      Authorization: `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-<<<<<<< Updated upstream
-      name,
-      email,
-      message,
-      _subject: `ByteStreams Contact: ${name}`,
-      _captcha: 'false',
-      _template: 'table',
-      _source: `bytestreams.ai (${origin})`
-=======
       // Sender lives on the verified `send.bytestreams.ai` Resend domain
       // (shared with DialTone; verified 2026-04-24).
       from: `${siteName} <contact@send.bytestreams.ai>`,
@@ -262,32 +244,34 @@ async function forwardToResend({ destinationEmail, siteName, name, email, messag
       // match Resend's documented canonical form. The regex check
       // upstream in `handleContact` rejects display-name / bracketed
       // syntax (whitespace and `<>` fail the anchored
-      // `[^\s@]+@[^\s@]+\.[^\s@]+` pattern), so `email` is a bare address.
+      // `[^
+\s@]+@[^\s@]+\.[^\s@]+` pattern), so `email` is a bare address.
       reply_to: [email],
       subject: `${siteName} Contact: ${name}`,
       text: buildTextBody({ siteName, name, email, message }),
       html: buildHtmlBody({ siteName, name, email, message })
->>>>>>> Stashed changes
     })
   });
 
-  let payload;
+  let payload = null;
   try {
     payload = await response.json();
   } catch {
     payload = null;
   }
 
-  const providerSuccess = payload && String(payload.success).toLowerCase() === 'true';
+  // Resend success returns `{ id: "<resend_message_id>" }`; errors return
+  // `{ statusCode, name, message }`. Treat presence of `id` as the ok signal.
+  const ok = response.ok && payload !== null && typeof payload.id === 'string';
 
   return {
-    ok: response.ok && providerSuccess,
-    providerMessage: payload && payload.message ? String(payload.message) : ''
+    ok,
+    httpStatus: response.status,
+    errorName: payload && payload.name ? String(payload.name) : '',
+    errorMessage: payload && payload.message ? String(payload.message) : ''
   };
 }
 
-<<<<<<< Updated upstream
-=======
 function buildTextBody({ siteName, name, email, message }) {
   return [
     `New ${siteName} contact form submission`,
@@ -331,9 +315,17 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;');
 }
 
->>>>>>> Stashed changes
 function normalizeText(value, maxLength) {
   return String(value || '').trim().slice(0, maxLength);
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
 }
 
 function jsonResponse(body, status = 200) {

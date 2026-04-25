@@ -58,6 +58,8 @@ jobs:
           # Fail fast if required legal pages are missing from the artifact.
           test -f public/cookies.html
           test -f public/sms-terms.html
+          # And the branded 404 page used by the Worker's `not_found_handling`.
+          test -f public/404.html
           # Strip sourcemaps from production (optional — remove if you want them)
           find public/dist -name '*.map' -delete || true
 
